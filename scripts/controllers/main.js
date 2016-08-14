@@ -98,8 +98,17 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
   	}
   ];
 
-  $scope.answerCorrect = 0;
+/* Contents:
+	x	1. ROLL: Select Principle, Draw Multiplechoice Options, Set Correect Answer 
+		2. Filter Multiplechoice Options By Randomly Selected Cards
+		3. Apply & Resolve Success/Fail to Submission of Multiple Choice
+		5. Apply Status-2 Select2 Dropdown.
+		6. Reroll
+*/
+  // defaults
+  $scope.answerCorrect = "";
   $scope.answerChoices = [];
+  $scope.gotInclude = "partials/principle-0.html"
 
   function selectQuestion() {
   	
@@ -107,47 +116,51 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
   		return $scope.principles[Math.floor(Math.random()*$scope.principles.length)];
 		};
 
-		var selected = findRandom();
+		var answerSelected = findRandom();
 
 		// set correct answer and multiple choice options
-  	switch(selected.status) {
+  	switch(answerSelected.status) {
     	case 1: // if Not Learned
-  			$scope.answerCorrect = selected.id;
-      	$scope.answerChoices.push(selected.id);
-  			var i;
+  			$scope.answerCorrect = answerSelected.id;
+      	$scope.answerChoices.push(answerSelected.id);
+  			var i = 0;
     		for (i=0;i<9;i++) {
     			$scope.answerChoices.push(findRandom().id);
     		}
         break;
     	case 2: // if Learned
-    		$scope.answerCorrect = selected;
-  			var i;
-      	for (i=0;i<10;i++) {
+    		$scope.answerCorrect = answerSelected.id;
+  			var j = 0;
+      	for (j=0;j<10;j++) {
       		$scope.answerChoices.push(findRandom().id);
       	}
         break;
     	case 3: // if Locked In
-    		console.log('reroll');
+    		$scope.reroll();
 		}
 
-		// select principle description based on correct answer
-		$scope.getInclude = function(){
-		    if($scope.answerCorrect != 0){
-		        return "partials/principle-"+$scope.answerCorrect+".html"
-		    }
-		    else
-		    	console.log ("getInclude has failed!")
-		}
+		console.log("scope answer CORRECT:" + $scope.answerCorrect);
+  	console.log("scope answer CHOICES:" + $scope.answerChoices);
   };
 
-  selectQuestion();
-  console.log("scope answer CORRECT:" + $scope.answerCorrect);
-  console.log("scope answer CHOICES:" + $scope.answerChoices);
+	// select principle description based on correct answer
+	function getInclude(){
+     $scope.gotInclude = "partials/principle-"+$scope.answerCorrect.toString()+".html";
+  };
 
  	$scope.reroll = function() {
   	$scope.answerCorrect = 0;
   	$scope.answerChoices = [];
   	selectQuestion();
+  	getInclude();
   };
+
+
+
+
+
+
+
+
 
 }); // END of Controller
