@@ -128,7 +128,6 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
         break;
     	case 3: // if Locked In
     		console.log('reroll');
-    		$scope.reroll();
 		}
 
 		// select principle description based on correct answer

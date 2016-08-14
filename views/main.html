@@ -1,32 +1,32 @@
 <div ng-controller="MainCtrl">
   <div class="col-xs-12">
     <br>
-    <p>Solve an <span style="color:red">Unlearned</span> word to mark it as <span style="color:orange">Learned</span>. Solve a Learned word a second time by selecting None of the Above and manually typing it into the input box that appears. Once you’ve Solved a Learned Word, it is considered <span style="color:green">Locked in</span>. Locked in Words will be removed from the curricum. Once all 150 Design Principles are Locked in, you’ve won!</p>
+    <p>Solve an <span style="color:red">Unlearned</span> word to mark it as <span style="color:orange">Learned</span>. Solve a Learned word a second time by selecting None of the Above and manually typing it into the input box that appears. Once you’ve Solved a Learned Word, it is considered <span style="color:green">Locked in</span>. Locked in Words will be removed from the curricum. Once all 150 Design Principles are Locked In, you’ve won!</p>
     <br>
     <div class="progress">
       <div class="progress-bar progress-bar-success progress-bar-striped" style="width: 35%" data-toggle="tooltip" title="35% Learned"></div>
       <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%" data-toggle="tooltip" title="20% Learned"></div>
       <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 45%" data-toggle="tooltip" title="35% Learned"></div>
     </div>
-    <br><hr><br><br>
+    <br><hr><br>
   </div>
 
-
-  <div class="col-sm-8">
+  <div class="col-sm-8 col-xs-12">
     <h3>Principle Description:</h3>
     <div class="jumbotron">
       <div ng-include="getInclude()"></div>
     </div> 
   </div>
 
-  <div class="col-sm-4">
+  <div class="col-sm-4 col-xs-12">
     <h3>Select An Answer:</h3>
     <ul>
-      <li ng-repeat="answer in answerChoices track by $index"><input type="checkbox">
-        <!-- <input type="checkbox" ng-model="principle.selected"> -->
-        &emsp;
-        {{answer.name}}
-      </li>
+      <div data-toggle="buttons">
+        <li ng-repeat="principle in principles track by principle.id">
+          <input type="radio" name="options" id="option{{principle.id}}" ng-model="principle.id">
+          {{principle.name}}
+        </li>
+      </div>
     </ul>
     <hr>
     <a class="btn btn-success pull-right"><i class="glyphicon glyphicon-send"></i> &emsp; Submit</a>
@@ -34,23 +34,6 @@
   </div>
 
   <div class="clearfix"></div>
-
-  <div class="row marketing">
-    <h4>HTML5 Boilerplate</h4>
-    <p>
-      HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-    </p>
-
-    <h4>Angular</h4>
-    <p>
-      AngularJS is a toolset for building the framework most suited to your application development.
-    </p>
-
-    <h4>Karma</h4>
-    <p>Spectacular Test Runner for JavaScript.</p>
-  </div>
-</div>
-
 
 <script>
   $(document).ready(function(){
