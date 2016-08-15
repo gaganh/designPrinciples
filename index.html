@@ -22,16 +22,25 @@
 
     <!-- Add your site or application content here -->
 
-    <div class="container">
+    
+    <div class="container bg-whhite centered">
+      <br>
+      <h2 class="ubuntu light">UX<span class="purple">HAX</span></h3>
+      <b class="xccc">THE PRINCIPLES OF DESIGN</b>
+      <br><br><br><br>
+    </div>
+    
+    <div class="container bg-white">
       <div ng-view=""></div>
     </div>
 
     <div class="footer">
-      <div class="container">
+      <div class="container bg-white">
         <p class="centered">
           /w <span class="glyphicon glyphicon-heart"></span> 
-          from <a href="http://www.thegagan.com" target="_blank">gagan</a> 
-          via <a href="https://www.github.com/gaganh">github</a>
+          by <a href="http://www.thegagan.com" target="_blank" data-toggle="tooltip" data-title="gagan.co">gagan</a> 
+          via <a href="https://www.github.com/gaganh" data-toggle="tooltip" data-title="github/gaganh">github</a>
+          for <a data-toggle="tooltip" title="this isn't a link, dummy!" style="cursor: pointer;">you</a>
       </div>
     </div>
 
@@ -65,6 +74,7 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/filters/answerchoicesfilter.js"></script>
         <!-- endbuild -->
 </body>
 </html>

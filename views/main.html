@@ -1,14 +1,25 @@
 <div ng-controller="MainCtrl">
   <div class="col-xs-12">
     <br>
-    <p>Solve an <span style="color:red">Unlearned</span> word to mark it as <span style="color:orange">Learned</span>. Solve a Learned word a second time by selecting None of the Above and manually typing it into the input box that appears. Once you’ve Solved a Learned Word, it is considered <span style="color:green">Locked in</span>. Locked in Words will be removed from the curricum. Once all 150 Design Principles are Locked In, you’ve won!</p>
+    <h4 class="pull-left">&ensp;&ensp;&ensp;HOW TO PLAY:</h4>
     <br>
-    <div class="progress">
+    <div class="clearfix"></div>
+    <div class="col-sm-3 col-xs-12">0. All Design Principles start <red>Unlearned</red>.</div>
+    <div class="col-sm-3 col-xs-12">1. Guess the Principle using Multiple Choice to <orange>Learn it.</orange></div>
+    <div class="col-sm-3 col-xs-12">2. You will be retested on each Principle in order to <green>Lock it In</green>.</div>
+    <div class="col-sm-3 col-xs-12">3. Lock in all 150 to Join the <b>Leaderboard</b>.
+    <img src="http://image.flaticon.com/icons/png/128/123/123410.png" height="15"></div>
+    <div class="clearfix"></div>
+    <!-- <p>Solve an <span style="color:red">Unlearned</span> word to mark it as <span style="color:orange">Learned</span>. Solve a Learned word a second time by selecting None of the Above and manually typing it into the input box that appears. Once you’ve Solved a Learned Word, it is considered <span style="color:green">Locked in</span>. Locked in Words will be removed from the curricum. Once all 150 Design Principles are Locked In, you’ve won!</p> -->
+    <br>
+    <div class="col-xs-12">
       <div class="progress-bar progress-bar-success progress-bar-striped" style="width: 35%" data-toggle="tooltip" title="35% Learned"></div>
       <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%" data-toggle="tooltip" title="20% Learned"></div>
       <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 45%" data-toggle="tooltip" title="35% Learned"></div>
     </div>
+    <div class="clearfix"></div>
     <br><hr><br>
+    <!-- <code>{{filteredAnswerChoices | json}}</code> -->
   </div>
 
   <div class="col-sm-8 col-xs-12">
@@ -19,12 +30,12 @@
   </div>
 
   <div class="col-sm-4 col-xs-12">
-    <h3>Select An Answer:</h3>
+    <h3>Select An Answer: </h3>
     <ul>
       <div data-toggle="buttons">
-        <li ng-repeat="principle in principles track by principle.id">
-          <input type="radio" name="options" id="option{{principle.id}}" ng-model="principle.id">
-          {{principle.name}}
+        <li ng-repeat="choice in filteredAnswerChoices track by $index">
+          <input type="radio" name="options" ng-model="selectedAnswer">
+          {{choice.id}} - {{choice.name}}
         </li>
       </div>
     </ul>

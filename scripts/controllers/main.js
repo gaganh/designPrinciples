@@ -106,8 +106,10 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
 		6. Reroll
 */
   // defaults
-  $scope.answerCorrect = "";
+  $scope.answerCorrect;
   $scope.answerChoices = [];
+  $scope.answreOption;
+  $scope.filteredAnswerChoices = [];
   $scope.gotInclude = "partials/principle-0.html"
 
   function selectQuestion() {
@@ -117,31 +119,64 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
 		};
 
 		var answerSelected = findRandom();
+		var answerOption;
+
+		function pickAnswerOption() {
+  		answerOption = findRandom().id;
+			if ($scope.answerChoices.indexOf(answerOption) !== -1 || !answerOption || answerOption == $scope.answerChoices[0]) {
+				console.log('fail' + answerOption);
+				pickAnswerOption();
+			}
+			if ($scope.answerChoices.indexOf(answerOption) == -1 && answerOption) {
+				console.log('success' + answerOption);
+				$scope.answerOption = answerOption;
+				return;
+			}
+			else
+				console.log('all fail on pickAnswerOption: else')
+				pickAnswerOption();
+  	};
 
 		// set correct answer and multiple choice options
   	switch(answerSelected.status) {
     	case 1: // if Not Learned
+    		console.log(answerSelected.status);
   			$scope.answerCorrect = answerSelected.id;
-      	$scope.answerChoices.push(answerSelected.id);
-  			var i = 0;
-    		for (i=0;i<9;i++) {
-    			$scope.answerChoices.push(findRandom().id);
+      	$scope.answerChoices.push($scope.answerCorrect);
+    		for (var i=0;i<9;i++) {
+    			pickAnswerOption()
+      		$scope.answerChoices.push($scope.answerOption);
     		}
+  			console.log("scope answer CHOICES:" + $scope.answerChoices.id);
+  			console.log("scope answer CORRECT:" + $scope.answerCorrect);
+  			console.log("final answerChoices:" + $scope.filteredAnswerChoices.id);
         break;
     	case 2: // if Learned
+    		console.log(answerSelected.status);
     		$scope.answerCorrect = answerSelected.id;
-  			var j = 0;
-      	for (j=0;j<10;j++) {
-      		$scope.answerChoices.push(findRandom().id);
+      	for (var j=0;j<10;j++) {
+      		pickAnswerOption()
+      		$scope.answerChoices.push($scope.answerOption);
       	}
+  			console.log("scope answer CHOICES:" + $scope.answerChoices.id);
+  			console.log("scope answer CORRECT:" + $scope.answerCorrect);
+  			console.log("final answerChoices:" + $scope.filteredAnswerChoices.id);
         break;
     	case 3: // if Locked In
+    		console.log(answerSelected.status);
     		$scope.reroll();
-		}
-
-		console.log("scope answer CORRECT:" + $scope.answerCorrect);
-  	console.log("scope answer CHOICES:" + $scope.answerChoices);
+    	default:
+    		$scope.reroll();
+		};
   };
+
+  // generate array of answerChoices
+  function mapIdToAnswer() {
+		$scope.filteredAnswerChoices = [];
+		for (var m=0;m<$scope.answerChoices.length;m++) {
+			$scope.filteredAnswerChoices.push($scope.principles[$scope.answerChoices[m]])
+		}
+	};
 
 	// select principle description based on correct answer
 	function getInclude(){
@@ -149,10 +184,12 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
   };
 
  	$scope.reroll = function() {
-  	$scope.answerCorrect = 0;
+  	$scope.answerCorrect = 0;	
   	$scope.answerChoices = [];
+  	$scope.filteredAnswerChoices = [];
   	selectQuestion();
   	getInclude();
+  	mapIdToAnswer();
   };
 
 

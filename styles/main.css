@@ -1,5 +1,40 @@
+@import "https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Ubuntu";
+.purple {
+  color: purple; }
+
+.light {
+  font-weight: 100; }
+
+.ubuntu {
+  font-family: 'Ubuntu', sans-serif; }
+
 .centered {
   text-align: center; }
+
+.xccc {
+  color: white;
+  text-shadow: 2px 2px purple; }
+
+body {
+  background-color: #f3f3f3; }
+
+.bg-white {
+  background-color: white; }
+
+.bg-f3 {
+  background-color: #f3f3f3; }
+
+red {
+  color: red;
+  font-weight: bold; }
+
+orange {
+  color: #ff9e1b;
+  font-weight: bold; }
+
+green {
+  color: green;
+  font-weight: bold; }
 
 .browsehappy {
   margin: 0.2em 0;
