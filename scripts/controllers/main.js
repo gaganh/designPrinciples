@@ -7,6 +7,7 @@
  * # MainCtrl
  * Controller of the designPrinciplesApp
  */
+
 angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
   this.awesomeThings = [
     'HTML5 Boilerplate',
@@ -124,11 +125,9 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
 		function pickAnswerOption() {
   		answerOption = findRandom().id;
 			if ($scope.answerChoices.indexOf(answerOption) !== -1 || !answerOption || answerOption == $scope.answerChoices[0]) {
-				console.log('fail' + answerOption);
 				pickAnswerOption();
 			}
 			if ($scope.answerChoices.indexOf(answerOption) == -1 && answerOption) {
-				console.log('success' + answerOption);
 				$scope.answerOption = answerOption;
 				return;
 			}
@@ -138,29 +137,26 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
   	};
 
 		// set correct answer and multiple choice options
+		console.log("on level: " + answerSelected.status);
   	switch(answerSelected.status) {
     	case 1: // if Not Learned
-    		console.log(answerSelected.status);
   			$scope.answerCorrect = answerSelected.id;
       	$scope.answerChoices.push($scope.answerCorrect);
     		for (var i=0;i<9;i++) {
     			pickAnswerOption()
       		$scope.answerChoices.push($scope.answerOption);
     		}
-  			console.log("scope answer CHOICES:" + $scope.answerChoices.id);
+  			console.log("scope answer CHOICES:" + $scope.answerChoices);
   			console.log("scope answer CORRECT:" + $scope.answerCorrect);
-  			console.log("final answerChoices:" + $scope.filteredAnswerChoices.id);
         break;
     	case 2: // if Learned
-    		console.log(answerSelected.status);
     		$scope.answerCorrect = answerSelected.id;
       	for (var j=0;j<10;j++) {
       		pickAnswerOption()
       		$scope.answerChoices.push($scope.answerOption);
       	}
-  			console.log("scope answer CHOICES:" + $scope.answerChoices.id);
+  			console.log("scope answer CHOICES:" + $scope.answerChoices);
   			console.log("scope answer CORRECT:" + $scope.answerCorrect);
-  			console.log("final answerChoices:" + $scope.filteredAnswerChoices.id);
         break;
     	case 3: // if Locked In
     		console.log(answerSelected.status);
@@ -173,8 +169,8 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
   // generate array of answerChoices
   function mapIdToAnswer() {
 		$scope.filteredAnswerChoices = [];
-		for (var m=0;m<$scope.answerChoices.length;m++) {
-			$scope.filteredAnswerChoices.push($scope.principles[$scope.answerChoices[m]])
+		for (var m=0; m<$scope.answerChoices.length; m++) {
+			$scope.filteredAnswerChoices.push($scope.principles[$scope.answerChoices[m]-1])
 		}
 	};
 
@@ -183,6 +179,19 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
      $scope.gotInclude = "partials/principle-"+$scope.answerCorrect.toString()+".html";
   };
 
+
+  // validate submitted answers
+	$scope.validateAnswer = function(){
+		if ($scope.radioVal == $scope.answerCorrect) {
+			console.log("Correct!");
+			console.log($scope.radioVal + " - vs - " + $scope.answerCorrect)
+		}
+		else
+			console.log('false!');
+			console.log($scope.radioVal + " - vs - " + $scope.answerCorrect)
+	};
+
+  // initialize quiz instance (all the things!)
  	$scope.reroll = function() {
   	$scope.answerCorrect = 0;	
   	$scope.answerChoices = [];

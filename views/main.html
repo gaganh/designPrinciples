@@ -20,28 +20,34 @@
     <div class="clearfix"></div>
     <br><hr><br>
     <!-- <code>{{filteredAnswerChoices | json}}</code> -->
-  </div>
+  </div>  
 
-  <div class="col-sm-8 col-xs-12">
+  <div class="col-sm-7 col-xs-12">
     <h3>Principle Description:</h3>
     <div class="jumbotron">
       <div ng-include=gotInclude></div>
     </div> 
   </div>
 
-  <div class="col-sm-4 col-xs-12">
+  <div class="col-sm-5 col-xs-12">
+  
     <h3>Select An Answer: </h3>
-    <ul>
-      <div data-toggle="buttons">
-        <li ng-repeat="choice in filteredAnswerChoices track by $index">
-          <input type="radio" name="options" ng-model="selectedAnswer">
-          {{choice.id}} - {{choice.name}}
-        </li>
-      </div>
-    </ul>
-    <hr>
-    <a class="btn btn-success pull-right"><i class="glyphicon glyphicon-send"></i> &emsp; Submit</a>
-    <a class="btn btn-link pull-right" ng-click="reroll();">skip</i></a>
+    <form ng-submit="validateAnswer()" name="multipleChoice">
+      <ul>
+        <div data-toggle="buttons">
+          <table class="table table-condensed">
+            <tr ng-repeat="choice in filteredAnswerChoices track by choice.id">
+              <td><input type="radio" name="options" ng-model="$parent.radioVal" value="{{choice.id}}"></td>
+              <td>{{choice.name}}</td>
+              <td>{{choice.id}}</td>
+            </tr>
+          </table>
+        </div>
+      </ul>
+      <hr>
+      <button class="btn btn-success pull-right" type="submit"><i class="glyphicon glyphicon-send"></i> &emsp; Submit</button>
+      <a class="btn btn-link pull-right" ng-click="reroll();">skip</i></a>
+    </form>
   </div>
 
   <div class="clearfix"></div>

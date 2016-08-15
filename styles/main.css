@@ -36,6 +36,9 @@ green {
   color: green;
   font-weight: bold; }
 
+.p12 {
+  font-size: 12px; }
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
