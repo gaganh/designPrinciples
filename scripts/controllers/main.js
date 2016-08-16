@@ -99,6 +99,9 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
   	}
   ];
 
+  $scope.progress = [{"lvl1" : 150, "lvl2" : 0, "lvl3" : 0}]
+
+  $scope.progress[0]
 /* Contents:
 	x	1. ROLL: Select Principle, Draw Multiplechoice Options, Set Correect Answer 
 		2. Filter Multiplechoice Options By Randomly Selected Cards
@@ -107,6 +110,10 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
 		6. Reroll
 */
   // defaults
+  $scope.progressTotal = $scope.principles.length;
+	$scope.progressCurrent1 = 0;
+	$scope.progressCurrent2 = 0;
+	$scope.progressCurrent3 = 0;
   $scope.manualAnswer = "";
   $scope.answerCorrect;
   $scope.answerChoices = [];
@@ -258,8 +265,30 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
 			});
 	};
 
+	$scope.setProgress = function(){
+
+		$scope.progressCurrent1 = 0
+		$scope.progressCurrent2 = 0
+		$scope.progressCurrent3 = 0
+		var z=0;
+		while (z<$scope.principles.length - 1) {
+			switch($scope.principles[z].status) {
+				case 1: // if Not Learned
+					$scope.progressCurrent1++
+					z++
+				case 2: // if Learned
+					$scope.progressCurrent2++
+					z++
+				case 3:
+					$scope.progressCurrent3++
+					z++
+			}
+		}
+	}
+
   // initialize quiz instance (all the things!)
  	$scope.reroll = function() {
+ 		$scope.setProgress();
   	$scope.radioVal = null;
   	$scope.manualAnswer = "";
 	  $scope.answerCorrect;
