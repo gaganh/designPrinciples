@@ -24,20 +24,14 @@
              progressbar total="progressTotal" current="progressCurrent3"></div>
         <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"
              progressbar total="progressTotal" current="progressCurrent2"></div>
-        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"
+        <div class="progress-bar progress-bar-gray progress-bar-striped" role="progressbar"
              progressbar total="progressTotal" current="progressCurrent1"></div>
       </div>
     <div class="clearfix"></div>
     <br><hr><br>
-    <!-- <code>{{filteredAnswerChoices | json}}</code> -->
+    <!-- <code ng-repeat="fac in filteredAnswerChoices">{{fac | json}} <br></code> -->
   </div>  
-  <div class="col-xs-12">
-    <code>
-      <p>{{principles | json}}
-      <hr>
-      <pre>{{principles[radioVal]}}</pre>
-    </code>
-  </div>
+
   <div class="col-sm-7 col-xs-12">
     <h3>Principle Description:</h3>
     <div class="jumbotron">
@@ -46,27 +40,27 @@
   </div>
 
   <div class="col-sm-5 col-xs-12">
-  
     <h3>Select An Answer: </h3>
     <form ng-submit="validateAnswer()" name="multipleChoice">
-        <table class="table table-condensed">
-          <div data-toggle="buttons">
-            <tr ng-repeat="choice in filteredAnswerChoices track by $index">
-              <td><input type="radio" name="options" ng-model="$parent.radioVal" ng-value="choice.id" ng-click="clearNaInput();"></td>
-              <td>{{choice.name}}</td>
-              <td>{{choice.id}}</td>
-            </tr>
-            <tr>
-              <td style="opacity: 0;"><input id="naRadio" type="radio" name="options" ng-model="$parent.radioVal" ng-value="choice.id" style="position: fixed; top: -1000px;"></td>
-              <td colspan="2"><input type="text" class="form-control" ng-model="manualAnswer" placeholder="Type the Principle Name" ng-click="selectNaRadios();"></td>
-            </tr>
-          </div>
-        </table>
-      <hr>
-      <button class="btn btn-success pull-right" type="submit"><i class="glyphicon glyphicon-send" ng-click="validateNaAnswer();"></i> &emsp; Submit normal</button>
+      <ul class="btn-group" id="multiSelection" data-toggle="buttons">
+        <li ng-repeat="choice in filteredAnswerChoices track by $index">
+          <label class="btn btn-block" style="text-align: left;">
+            <input type="radio" name="options" ng-model="$parent.radioVal" ng-value="choice.id" ng-click="clearNaInput();" style="display:none; position: fixed; top: -1000px;">
+            {{choice.name}} ({{choice.id}})
+          </label>
+        </li>
+        <li>
+          <label class="btn btn-block" style="text-align: left;">
+            <input id="naRadio" type="radio" name="options" ng-model="$parent.radioVal" ng-value="choice.id" style="position: fixed; top: -1000px;">
+            <input type="text" class="form-control width-100p" ng-model="manualAnswer" placeholder="None of the Above" ng-click="selectNaRadios();">
+          </label>
+        </li>
+      </ul>
+
+      <button class="btn btn-success btn-lg pull-right sharp-corners" type="submit"><i class="glyphicon glyphicon-send" ng-click="validateNaAnswer();"></i> &emsp; Submit</button>
     </form>
-    <a class="btn btn-link pull-right" ng-click="reroll();">skip</i></a>
-    <pre>{{manualAnswer}}</pre>
+    <a class="btn btn-link pull-right btn-lg" ng-click="reroll();">skip</i></a>
+    <br><br><br>
   </div>
 
   <div class="clearfix"></div>

@@ -59,49 +59,46 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
   	}, {
   		id: 10,
   		name: "Area Alignment",
-  		status: 2
+  		status: 1
   	}, {
   		id: 11,
   		name: "Attractiveness Bias",
-  		status: 2
+  		status: 1
   	}, {
   		id: 12,
   		name: "Baby-face Bias",
-  		status: 2
+  		status: 1
   	}, {
   		id: 13,
   		name: "Back of the Dresser",
-  		status: 2
+  		status: 1
   	}, {
   		id: 14,
   		name: "Biophilia Effect",
-  		status: 2
+  		status: 1
   	}, {
   		id: 15,
   		name: "Black Effects",
-  		status: 2
+  		status: 1
   	}, {
   		id: 16,
   		name: "Blue Effects",
-  		status: 2
+  		status: 1
   	}, {
   		id: 17,
   		name: "Cathedral Effect",
-  		status: 2
+  		status: 1
   	}, {
   		id: 18,
   		name: "Chunking",
-  		status: 2
+  		status: 1
   	}, {
   		id: 19,
   		name: "Classical Conditioning",
-  		status: 3
+  		status: 1
   	}
   ];
 
-  $scope.progress = [{"lvl1" : 150, "lvl2" : 0, "lvl3" : 0}]
-
-  $scope.progress[0]
 /* Contents:
 	x	1. ROLL: Select Principle, Draw Multiplechoice Options, Set Correect Answer 
 		2. Filter Multiplechoice Options By Randomly Selected Cards
@@ -220,7 +217,13 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
 		}
 
 		if ($scope.radioVal && $scope.radioVal !== $scope.answerCorrect) {
-			SweetAlert.swal("Oops!", "That wasn't quite right!", "error");
+			SweetAlert.swal({
+        title: "Oops!", 
+        text: "That wasn't quite right!",
+        type: "error"},
+        function(){ 
+            $scope.reroll();
+      });
 			return;
 		}
 
@@ -229,7 +232,11 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
 		}
 
 		else
-			SweetAlert.swal("Awkward", "You forgot to select an answer.", "warning");
+			SweetAlert.swal({
+        title: "Awkward", 
+        text: "You forgot to select an answer.", 
+        type: "warning"
+      });
 	};
 
 	$scope.selectNaRadios = function() {
@@ -267,24 +274,26 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
 
 	$scope.setProgress = function(){
 
-		$scope.progressCurrent1 = 0
+	  $scope.progressCurrent1 = 0
 		$scope.progressCurrent2 = 0
 		$scope.progressCurrent3 = 0
-		var z=0;
-		while (z<$scope.principles.length - 1) {
-			switch($scope.principles[z].status) {
-				case 1: // if Not Learned
-					$scope.progressCurrent1++
-					z++
-				case 2: // if Learned
-					$scope.progressCurrent2++
-					z++
-				case 3:
-					$scope.progressCurrent3++
-					z++
+		
+		for (var z=0; z<$scope.principles.length; z++) {
+			if ($scope.principles[z].status == 1) {
+				$scope.progressCurrent1 += 1;
+      }
+      if ($scope.principles[z].status == 2) {
+				$scope.progressCurrent2 += 1;
+      }
+			if ($scope.principles[z].status == 3) {
+        $scope.progressCurrent3 += 1;
 			}
-		}
-	}
+    }
+
+    console.log($scope.progressCurrent1 + ' ' + $scope.progressCurrent2 + ' ' + $scope.progressCurrent3);
+
+	};
+
 
   // initialize quiz instance (all the things!)
  	$scope.reroll = function() {
@@ -299,6 +308,8 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
   	getInclude();
   	mapIdToAnswer();
   };
+
+  $scope.reroll();
 
 
 

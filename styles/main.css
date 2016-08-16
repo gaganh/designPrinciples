@@ -11,6 +11,9 @@
 .centered {
   text-align: center; }
 
+.text-left {
+  text-align: left; }
+
 .xccc {
   color: white;
   text-shadow: 2px 2px purple;
@@ -40,8 +43,17 @@ green {
 .p12 {
   font-size: 12px; }
 
+.sharp-corners {
+  border-radius: 0; }
+
+.width-100p {
+  width: 100%; }
+
 .pad-5 {
   padding: 5px; }
+
+.progress-bar-gray {
+  background-color: #ccc; }
 
 .footer {
   border: none;
@@ -52,5 +64,25 @@ green {
   border: none; }
   .footer:hover {
     opacity: 1; }
+
+ul#multiSelection {
+  width: 100%; }
+  ul#multiSelection li {
+    list-style: none; }
+    ul#multiSelection li label {
+      background-color: #f3f3f3;
+      border-radius: 0;
+      margin-bottom: 2px;
+      display: block; }
+      ul#multiSelection li label:hover, ul#multiSelection li label.active {
+        background-color: purple;
+        color: white; }
+    ul#multiSelection li input {
+      background-color: transparent;
+      box-shadow: none;
+      border: none;
+      padding-left: 0;
+      color: white;
+      font-weight: bold; }
 
 /*# sourceMappingURL=main.css.map */
