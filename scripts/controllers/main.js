@@ -8,7 +8,7 @@
  * Controller of the designPrinciplesApp
  */
 
-angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
+angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAlert', function ($scope, SweetAlert) {
   this.awesomeThings = [
     'HTML5 Boilerplate',
     'AngularJS',
@@ -17,83 +17,83 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
 
   $scope.principles = [
   	{
-  		id: 1,
+  		id: 0,
   		name: "3d Projection",
   		status: 1
   	}, {
-  		id: 2,
+  		id: 1,
   		name: "80/20 Rule",
   		status: 1
   	}, {
-  		id: 3,
+  		id: 2,
   		name: "Abbe",
   		status: 1
   	}, {
-  		id: 4,
+  		id: 3,
   		name: "Accessibility",
   		status: 1
   	}, {
-  		id: 5,
+  		id: 4,
   		name: "Aesthetic-Usability Effect",
   		status: 1
   	}, {
-  		id: 6,
+  		id: 5,
   		name: "Affordance",
-  		status: 2
+  		status: 1
+  	}, {
+  		id: 6,
+  		name: "Alignment",
+  		status: 1
   	}, {
   		id: 7,
-  		name: "Alignment",
-  		status: 2
+  		name: "Anthropomorphism",
+  		status: 1
   	}, {
   		id: 8,
-  		name: "Anthropomorphism",
-  		status: 2
+  		name: "Apparent Motion",
+  		status: 1
   	}, {
   		id: 9,
-  		name: "Apparent Motion",
-  		status: 2
+  		name: "Archetypes",
+  		status: 1
   	}, {
   		id: 10,
-  		name: "Archetypes",
+  		name: "Area Alignment",
   		status: 2
   	}, {
   		id: 11,
-  		name: "Area Alignment",
-  		status: 1
+  		name: "Attractiveness Bias",
+  		status: 2
   	}, {
   		id: 12,
-  		name: "Attractiveness Bias",
-  		status: 1
+  		name: "Baby-face Bias",
+  		status: 2
   	}, {
   		id: 13,
-  		name: "Baby-face Bias",
-  		status: 1
+  		name: "Back of the Dresser",
+  		status: 2
   	}, {
   		id: 14,
-  		name: "Back of the Dresser",
-  		status: 1
+  		name: "Biophilia Effect",
+  		status: 2
   	}, {
   		id: 15,
-  		name: "Biophilia Effect",
-  		status: 1
+  		name: "Black Effects",
+  		status: 2
   	}, {
   		id: 16,
-  		name: "Black Effects",
-  		status: 3
+  		name: "Blue Effects",
+  		status: 2
   	}, {
   		id: 17,
-  		name: "Blue Effects",
-  		status: 3
+  		name: "Cathedral Effect",
+  		status: 2
   	}, {
   		id: 18,
-  		name: "Cathedral Effect",
-  		status: 3
+  		name: "Chunking",
+  		status: 2
   	}, {
   		id: 19,
-  		name: "Chunking",
-  		status: 3
-  	}, {
-  		id: 20,
   		name: "Classical Conditioning",
   		status: 3
   	}
@@ -107,6 +107,7 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
 		6. Reroll
 */
   // defaults
+  $scope.manualAnswer = "";
   $scope.answerCorrect;
   $scope.answerChoices = [];
   $scope.answreOption;
@@ -116,7 +117,8 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
   function selectQuestion() {
   	
   	function findRandom() {
-  		return $scope.principles[Math.floor(Math.random()*$scope.principles.length)];
+  		var rando = $scope.principles[Math.floor(Math.random()*$scope.principles.length)];
+  		return rando;
 		};
 
 		var answerSelected = findRandom();
@@ -127,7 +129,7 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
 			if ($scope.answerChoices.indexOf(answerOption) !== -1 || !answerOption || answerOption == $scope.answerChoices[0]) {
 				pickAnswerOption();
 			}
-			if ($scope.answerChoices.indexOf(answerOption) == -1 && answerOption) {
+			if ($scope.answerChoices.indexOf(answerOption) == -1 && answerOption > -1) {
 				$scope.answerOption = answerOption;
 				return;
 			}
@@ -151,10 +153,11 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
         break;
     	case 2: // if Learned
     		$scope.answerCorrect = answerSelected.id;
-      	for (var j=0;j<10;j++) {
+      	for (var j=0;j<9;j++) {
       		pickAnswerOption()
       		$scope.answerChoices.push($scope.answerOption);
       	}
+      	$scope.answerChoices.push($scope.principles[$scope.principles.length - 1].id);
   			console.log("scope answer CHOICES:" + $scope.answerChoices);
   			console.log("scope answer CORRECT:" + $scope.answerCorrect);
         break;
@@ -170,7 +173,7 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
   function mapIdToAnswer() {
 		$scope.filteredAnswerChoices = [];
 		for (var m=0; m<$scope.answerChoices.length; m++) {
-			$scope.filteredAnswerChoices.push($scope.principles[$scope.answerChoices[m]-1])
+			$scope.filteredAnswerChoices.push($scope.principles[$scope.answerChoices[m]])
 		}
 	};
 
@@ -179,23 +182,90 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
      $scope.gotInclude = "partials/principle-"+$scope.answerCorrect.toString()+".html";
   };
 
-
   // validate submitted answers
 	$scope.validateAnswer = function(){
 		if ($scope.radioVal == $scope.answerCorrect) {
-			console.log("Correct!");
-			console.log($scope.radioVal + " - vs - " + $scope.answerCorrect)
+			switch($scope.principles[$scope.radioVal].status) {
+				case 1: // if Not Learned
+					$scope.principles[$scope.radioVal].status = 2;
+					break;
+				case 2: // if Not Learned
+					$scope.principles[$scope.radioVal].status = 3;
+					break;
+				default:
+					SweetAlert.swal({
+					  title: "Sorry!",
+					  text: "Something went wrong. Let's try again",
+					  type: "warning"
+					});
+					break;
+			}
+			SweetAlert.swal({
+			  title: "Good Job!",
+			  text: "You got it right!",
+			  type: "success",
+			  confirmButtonColor: "#00b200",
+				confirmButtonText: "Keep going!"},
+				function(){ 
+			  	$scope.reroll();
+			});
+			return;
+		}
+
+		if ($scope.radioVal && $scope.radioVal !== $scope.answerCorrect) {
+			SweetAlert.swal("Oops!", "That wasn't quite right!", "error");
+			return;
+		}
+
+		if ($scope.manualAnswer.length) {
+			$scope.validateNaAnswer();
+		}
+
+		else
+			SweetAlert.swal("Awkward", "You forgot to select an answer.", "warning");
+	};
+
+	$scope.selectNaRadios = function() {
+		angular.element('#naRadio').trigger('click');
+		$scope.radioVal = null;
+	};
+
+	$scope.clearNaInput = function() {
+		$scope.manualAnswer = null;
+	};
+
+	$scope.validateNaAnswer = function() {
+		if ($scope.principles[$scope.answerCorrect].name == $scope.manualAnswer && $scope.principles[$scope.answerCorrect].status == 2) {
+			$scope.principles[$scope.answerCorrect].status = 3;
+			SweetAlert.swal({
+			  title: "zzzzGood Job!",
+			  text: "You got it right!",
+			  type: "success",
+			  confirmButtonColor: "#00b200",
+				confirmButtonText: "Keep going!"},
+				function(){ 
+			  	$scope.reroll();
+			});
 		}
 		else
-			console.log('false!');
-			console.log($scope.radioVal + " - vs - " + $scope.answerCorrect)
+			$scope.principles[$scope.answerCorrect].status = 1;
+			SweetAlert.swal({
+				title: "zzzzOops!",
+				text: "That wasn't quite right!", 
+				type: "error"},
+				function(){ 
+				  	$scope.reroll();
+			});
 	};
 
   // initialize quiz instance (all the things!)
  	$scope.reroll = function() {
-  	$scope.answerCorrect = 0;	
-  	$scope.answerChoices = [];
-  	$scope.filteredAnswerChoices = [];
+  	$scope.radioVal = null;
+  	$scope.manualAnswer = "";
+	  $scope.answerCorrect;
+	  $scope.answerChoices = [];
+	  $scope.answreOption;
+	  $scope.filteredAnswerChoices = [];
   	selectQuestion();
   	getInclude();
   	mapIdToAnswer();
@@ -209,4 +279,4 @@ angular.module('designPrinciplesApp').controller('MainCtrl', function ($scope) {
 
 
 
-}); // END of Controller
+}]); // END of Controller

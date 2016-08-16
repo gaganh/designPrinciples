@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'oitozero.ngSweetAlert'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -28,6 +29,11 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
         controllerAs: 'about'
+      })
+      .when('/leaderboard', {
+        templateUrl: 'views/leaderboard.html',
+        controller: 'LeaderboardCtrl',
+        controllerAs: 'leaderboard'
       })
       .otherwise({
         redirectTo: '/'

@@ -21,7 +21,13 @@
     <br><hr><br>
     <!-- <code>{{filteredAnswerChoices | json}}</code> -->
   </div>  
-
+  <div class="col-xs-12">
+    <code>
+      <p>{{principles | json}}
+      <hr>
+      <pre>{{principles[radioVal]}}</pre>
+    </code>
+  </div>
   <div class="col-sm-7 col-xs-12">
     <h3>Principle Description:</h3>
     <div class="jumbotron">
@@ -33,21 +39,24 @@
   
     <h3>Select An Answer: </h3>
     <form ng-submit="validateAnswer()" name="multipleChoice">
-      <ul>
-        <div data-toggle="buttons">
-          <table class="table table-condensed">
-            <tr ng-repeat="choice in filteredAnswerChoices track by choice.id">
-              <td><input type="radio" name="options" ng-model="$parent.radioVal" value="{{choice.id}}"></td>
+        <table class="table table-condensed">
+          <div data-toggle="buttons">
+            <tr ng-repeat="choice in filteredAnswerChoices track by $index">
+              <td><input type="radio" name="options" ng-model="$parent.radioVal" ng-value="choice.id" ng-click="clearNaInput();"></td>
               <td>{{choice.name}}</td>
               <td>{{choice.id}}</td>
             </tr>
-          </table>
-        </div>
-      </ul>
+            <tr>
+              <td style="opacity: 0;"><input id="naRadio" type="radio" name="options" ng-model="$parent.radioVal" ng-value="choice.id" style="position: fixed; top: -1000px;"></td>
+              <td colspan="2"><input type="text" class="form-control" ng-model="manualAnswer" placeholder="Type the Principle Name" ng-click="selectNaRadios();"></td>
+            </tr>
+          </div>
+        </table>
       <hr>
-      <button class="btn btn-success pull-right" type="submit"><i class="glyphicon glyphicon-send"></i> &emsp; Submit</button>
-      <a class="btn btn-link pull-right" ng-click="reroll();">skip</i></a>
+      <button class="btn btn-success pull-right" type="submit"><i class="glyphicon glyphicon-send" ng-click="validateNaAnswer();"></i> &emsp; Submit normal</button>
     </form>
+    <a class="btn btn-link pull-right" ng-click="reroll();">skip</i></a>
+    <pre>{{manualAnswer}}</pre>
   </div>
 
   <div class="clearfix"></div>
