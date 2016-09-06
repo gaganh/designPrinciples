@@ -4,11 +4,26 @@
     <h4 class="pull-left">&ensp;&ensp;&ensp;HOW TO PLAY:</h4>
     <br>
     <div class="clearfix"></div>
-    <div class="col-sm-3 col-xs-12">0. All Design Principles start <red>Unlearned</red>.</div>
-    <div class="col-sm-3 col-xs-12">1. Guess the Principle using Multiple Choice to <orange>Learn it.</orange></div>
-    <div class="col-sm-3 col-xs-12">2. You will be retested on each Principle in order to <green>Lock it In</green>.</div>
-    <div class="col-sm-3 col-xs-12">3. Lock in all 150 to Join the <b>Leaderboard</b>.
-    <img src="http://image.flaticon.com/icons/png/128/123/123410.png" height="15"></div>
+    <div class="col-sm-3 col-xs-12 centered">
+      <h4>0.</h4>
+      All Design Principles start 
+      <br> <div class="label label-default">Unlearned</div>
+    </div>
+    <div class="col-sm-3 col-xs-12 centered">
+      <h4>1.</h4>
+      Guess the principle to 
+      <br> <div class="label label-warning">Learn it.</div>
+    </div>
+    <div class="col-sm-3 col-xs-12 centered">
+      <h4>2.</h4> 
+      Retest each principle to 
+      <br><div class="label label-success">Lock it In</div>
+    </div>
+    <div class="col-sm-3 col-xs-12 centered">
+      <h4><i>N</i>.</h4>
+      Lock in all 150 to win! 
+      <br><img src="http://image.flaticon.com/icons/png/128/123/123410.png" height="15"></div>
+    </div>
     <div class="clearfix"></div>
     <!-- <p>Solve an <span style="color:red">Unlearned</span> word to mark it as <span style="color:orange">Learned</span>. Solve a Learned word a second time by selecting None of the Above and manually typing it into the input box that appears. Once you’ve Solved a Learned Word, it is considered <span style="color:green">Locked in</span>. Locked in Words will be removed from the curricum. Once all 150 Design Principles are Locked In, you’ve won!</p> -->
     <br>
@@ -44,15 +59,15 @@
     <form ng-submit="validateAnswer()" name="multipleChoice">
       <ul class="btn-group" id="multiSelection" data-toggle="buttons">
         <li ng-repeat="choice in filteredAnswerChoices track by $index">
-          <label class="btn btn-block" style="text-align: left;">
-            <input type="radio" name="options" ng-model="$parent.radioVal" ng-value="choice.id" ng-click="clearNaInput();" style="display:none; position: fixed; top: -1000px;">
+          <label class="btn btn-block" ng-click="clearNaInput();" style="text-align: left;">
+            <input type="radio" name="options" ng-model="$parent.radioVal" value="choice.id" style="display:none; position: fixed; top: -1000px;">
             {{choice.name}} ({{choice.id}})
           </label>
         </li>
         <li>
           <label class="btn btn-block" style="text-align: left;">
-            <input id="naRadio" type="radio" name="options" ng-model="$parent.radioVal" ng-value="choice.id" style="position: fixed; top: -1000px;">
             <input type="text" class="form-control width-100p" ng-model="manualAnswer" placeholder="None of the Above" ng-click="selectNaRadios();">
+            <input id="naRadio" type="radio" name="options" ng-model="$parent.radioVal" ng-value="choice.id" style="position: fixed; top: -1000px;">
           </label>
         </li>
       </ul>

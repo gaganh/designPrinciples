@@ -1,11 +1,11 @@
 // bower:scss
 // endbower
 
-
 // FONTS
 @import 'https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Ubuntu';
 
 .purple { color: purple; }
+.blk { color: rgba(0,0,0,.75); }
 .light { font-weight: 100; }
 .ubuntu { font-family: 'Ubuntu', sans-serif; }
 .centered { text-align: center; }
@@ -14,6 +14,7 @@
 body { background-color: #f3f3f3; }
 .bg-white { background-color: white; }
 .bg-f3 { background-color: #f3f3f3; }
+gray { color: rgba(0,0,0,.7); font-weight: bold;}
 red { color: red; font-weight: bold; }
 orange { color: #ff9e1b; font-weight: bold; }
 green { color: green; font-weight: bold; }
@@ -41,14 +42,16 @@ ul#multiSelection {
       &:hover, &.active { 
         background-color: purple;
         color: white;
+        input { color: white; }
       }
+      &.active input { color: white;}
     }
     input { 
       background-color: transparent; 
       box-shadow: none;
       border: none;
       padding-left: 0;
-      color: white;
+      color: black;
       font-weight: bold;
     }
   }

@@ -2,6 +2,9 @@
 .purple {
   color: purple; }
 
+.blk {
+  color: rgba(0, 0, 0, 0.75); }
+
 .light {
   font-weight: 100; }
 
@@ -27,6 +30,10 @@ body {
 
 .bg-f3 {
   background-color: #f3f3f3; }
+
+gray {
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: bold; }
 
 red {
   color: red;
@@ -77,12 +84,16 @@ ul#multiSelection {
       ul#multiSelection li label:hover, ul#multiSelection li label.active {
         background-color: purple;
         color: white; }
+        ul#multiSelection li label:hover input, ul#multiSelection li label.active input {
+          color: white; }
+      ul#multiSelection li label.active input {
+        color: white; }
     ul#multiSelection li input {
       background-color: transparent;
       box-shadow: none;
       border: none;
       padding-left: 0;
-      color: white;
+      color: black;
       font-weight: bold; }
 
 /*# sourceMappingURL=main.css.map */

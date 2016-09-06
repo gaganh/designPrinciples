@@ -188,6 +188,8 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
 
   // validate submitted answers
 	$scope.validateAnswer = function(){
+    console.log("RADIOVAL " + $scope.radioVal);
+    console.log("ANSWERCORRECT " + $scope.answerCorrect);
 		if ($scope.radioVal == $scope.answerCorrect) {
 			switch($scope.principles[$scope.radioVal].status) {
 				case 1: // if Not Learned
@@ -227,7 +229,7 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
 			return;
 		}
 
-		if ($scope.manualAnswer.length) {
+		if ($scope.manualAnswer !== null) {
 			$scope.validateNaAnswer();
 		}
 
@@ -239,20 +241,27 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
       });
 	};
 
+  $scope.setRadioVal = function() {
+    $scope.radioVal = 
+    console.log('radioval set to' + $scope.radioVal);
+  }
+
 	$scope.selectNaRadios = function() {
-		angular.element('#naRadio').trigger('click');
 		$scope.radioVal = null;
+    angular.element('ul#multiSelection label').removeClass('active');
+    angular.element('#naRadio').parent('label').addClass('active');
 	};
 
 	$scope.clearNaInput = function() {
-		$scope.manualAnswer = null;
+    $scope.manualAnswer = null;
+    // $scope.radioVal = $parent.radioval;
 	};
 
 	$scope.validateNaAnswer = function() {
 		if ($scope.principles[$scope.answerCorrect].name == $scope.manualAnswer && $scope.principles[$scope.answerCorrect].status == 2) {
 			$scope.principles[$scope.answerCorrect].status = 3;
 			SweetAlert.swal({
-			  title: "zzzzGood Job!",
+			  title: "Good Job!",
 			  text: "You got it right!",
 			  type: "success",
 			  confirmButtonColor: "#00b200",
@@ -264,7 +273,7 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
 		else
 			$scope.principles[$scope.answerCorrect].status = 1;
 			SweetAlert.swal({
-				title: "zzzzOops!",
+				title: "Oops!",
 				text: "That wasn't quite right!", 
 				type: "error"},
 				function(){ 
@@ -299,7 +308,7 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
  	$scope.reroll = function() {
  		$scope.setProgress();
   	$scope.radioVal = null;
-  	$scope.manualAnswer = "";
+  	$scope.manualAnswer = null;
 	  $scope.answerCorrect;
 	  $scope.answerChoices = [];
 	  $scope.answreOption;
