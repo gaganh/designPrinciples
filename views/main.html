@@ -1,8 +1,6 @@
 <div ng-controller="MainCtrl">
   <div class="col-xs-12">
     <br>
-    <h4 class="pull-left">&ensp;&ensp;&ensp;HOW TO PLAY:</h4>
-    <br>
     <div class="clearfix"></div>
     <div class="col-sm-3 col-xs-12 centered">
       <h4>0.</h4>
@@ -25,17 +23,11 @@
       <br><img src="http://image.flaticon.com/icons/png/128/123/123410.png" height="15"></div>
     </div>
     <div class="clearfix"></div>
-    <!-- <p>Solve an <span style="color:red">Unlearned</span> word to mark it as <span style="color:orange">Learned</span>. Solve a Learned word a second time by selecting None of the Above and manually typing it into the input box that appears. Once you’ve Solved a Learned Word, it is considered <span style="color:green">Locked in</span>. Locked in Words will be removed from the curricum. Once all 150 Design Principles are Locked In, you’ve won!</p> -->
     <br>
     <div class="col-xs-12">
-    
-      <!-- 1<input type="text" ng-model="progressCurrent1"></input><Br>
-      2<input type="text" ng-model="progressCurrent2"></input><br>
-      3<input type="text" ng-model="progressCurrent3"></input>
-      <input type="text" ng-model="progressTotal"></input> -->
       <br/>
-      <div class="progress">
-        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+      <div class="progress" style="height: 100px;">
+        <div class="progress-bar progress-bar-success progress-bar-striped progress-bar" role="progressbar"
              progressbar total="progressTotal" current="progressCurrent3"></div>
         <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"
              progressbar total="progressTotal" current="progressCurrent2"></div>
@@ -43,7 +35,7 @@
              progressbar total="progressTotal" current="progressCurrent1"></div>
       </div>
     <div class="clearfix"></div>
-    <br><hr><br>
+    <hr>
     <!-- <code ng-repeat="fac in filteredAnswerChoices">{{fac | json}} <br></code> -->
   </div>  
 
@@ -59,15 +51,15 @@
     <form ng-submit="validateAnswer()" name="multipleChoice">
       <ul class="btn-group" id="multiSelection" data-toggle="buttons">
         <li ng-repeat="choice in filteredAnswerChoices track by $index">
-          <label class="btn btn-block" ng-click="clearNaInput();" style="text-align: left;">
-            <input type="radio" name="options" ng-model="$parent.radioVal" value="choice.id" style="display:none; position: fixed; top: -1000px;">
+          <label class="btn btn-block" ng-click="clearNaInput(); setRadioVal($index);" style="text-align: left;">
+            <input type="radio" name="options" ng-model="radioVal" ng-value="choice.id" style="display:none; position: fixed; top: -1000px;">
             {{choice.name}} ({{choice.id}})
           </label>
         </li>
         <li>
           <label class="btn btn-block" style="text-align: left;">
             <input type="text" class="form-control width-100p" ng-model="manualAnswer" placeholder="None of the Above" ng-click="selectNaRadios();">
-            <input id="naRadio" type="radio" name="options" ng-model="$parent.radioVal" ng-value="choice.id" style="position: fixed; top: -1000px;">
+            <input id="naRadio" type="radio" name="options" ng-model="radioVal" ng-value="choice.id" style="position: fixed; top: -1000px;">
           </label>
         </li>
       </ul>

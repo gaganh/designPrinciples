@@ -73,7 +73,8 @@ green {
     opacity: 1; }
 
 ul#multiSelection {
-  width: 100%; }
+  width: 100%;
+  padding-left: 0; }
   ul#multiSelection li {
     list-style: none; }
     ul#multiSelection li label {

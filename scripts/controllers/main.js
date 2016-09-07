@@ -111,7 +111,7 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
 	$scope.progressCurrent1 = 0;
 	$scope.progressCurrent2 = 0;
 	$scope.progressCurrent3 = 0;
-  $scope.manualAnswer = "";
+  $scope.manualAnswer = null;
   $scope.answerCorrect;
   $scope.answerChoices = [];
   $scope.answreOption;
@@ -221,7 +221,7 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
 		if ($scope.radioVal && $scope.radioVal !== $scope.answerCorrect) {
 			SweetAlert.swal({
         title: "Oops!", 
-        text: "That wasn't quite right!",
+        text: "That wasn't the right! \n Answer: " + $scope.principles[$scope.answerCorrect].name,
         type: "error"},
         function(){ 
             $scope.reroll();
@@ -241,10 +241,10 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
       });
 	};
 
-  $scope.setRadioVal = function() {
-    $scope.radioVal = 
-    console.log('radioval set to' + $scope.radioVal);
-  }
+  $scope.setRadioVal = function($index) {
+    $scope.radioVal = $scope.filteredAnswerChoices[$index].id;
+    console.log('radioval set to ' + JSON.stringify($scope.filteredAnswerChoices[$index].id));
+  };
 
 	$scope.selectNaRadios = function() {
 		$scope.radioVal = null;
@@ -258,6 +258,9 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
 	};
 
 	$scope.validateNaAnswer = function() {
+    // console.log($scope.principles[$scope.answerCorrect].name);
+    // console.log($scope.manualAnswer);
+    // console.log($scope.principles[$scope.answerCorrect].name == $scope.manualAnswer)
 		if ($scope.principles[$scope.answerCorrect].name == $scope.manualAnswer && $scope.principles[$scope.answerCorrect].status == 2) {
 			$scope.principles[$scope.answerCorrect].status = 3;
 			SweetAlert.swal({
@@ -268,17 +271,22 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
 				confirmButtonText: "Keep going!"},
 				function(){ 
 			  	$scope.reroll();
-			});
+			  }
+      );
+      return;
+      
 		}
 		else
 			$scope.principles[$scope.answerCorrect].status = 1;
 			SweetAlert.swal({
 				title: "Oops!",
-				text: "That wasn't quite right!", 
+				text: "That wasn't quite right!" + "\n Answer: " + $scope.principles[$scope.answerCorrect].name, 
 				type: "error"},
 				function(){ 
 				  	$scope.reroll();
-			});
+  			}
+      );
+      return;
 	};
 
 	$scope.setProgress = function(){
@@ -309,6 +317,7 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
  		$scope.setProgress();
   	$scope.radioVal = null;
   	$scope.manualAnswer = null;
+    angular.element('ul#multiSelection label').removeClass('active');
 	  $scope.answerCorrect;
 	  $scope.answerChoices = [];
 	  $scope.answreOption;
