@@ -17,13 +17,48 @@
 .text-left {
   text-align: left; }
 
-.xccc {
-  color: white;
-  text-shadow: 2px 2px purple;
-  font-size: 24px; }
+.text-right {
+  text-align: right; }
+
+.pad-0 {
+  padding: 0px; }
+
+html, body {
+  height: 100%;
+  width: 100%; }
 
 body {
-  background-color: #f3f3f3; }
+  background-color: purple; }
+
+#logo {
+  text-shadow: 3px 0px 0px white;
+  font-size: 48px; }
+
+#bodybg {
+  z-index: -1;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-image: url("../images/ignasi_pattern_s.png");
+  background-repeat: both;
+  opacity: .9; }
+
+#intro {
+  margin-top: 225px; }
+
+.xccc {
+  color: white;
+  font-size: 48px;
+  opacity: .75; }
+
+.parallax {
+  height: 300px;
+  width: 100%;
+  position: fixed;
+  top: 75px;
+  z-index: -1; }
 
 .bg-white {
   background-color: white; }
@@ -78,13 +113,22 @@ ul#multiSelection {
   ul#multiSelection li {
     list-style: none; }
     ul#multiSelection li label {
+      -moz-transition: background-color 0.5s, color 0.5s, 0.25, tint 1s;
+      -o-transition: background-color 0.5s, color 0.5s, 0.25, tint 1s;
+      -webkit-transition: background-color 0.5s, color 0.5s, 0.25, tint 1s;
+      transition: background-color 0.5s, color 0.5s, 0.25, tint 1s;
       background-color: #f3f3f3;
       border-radius: 0;
       margin-bottom: 2px;
-      display: block; }
+      display: block;
+      color: purple;
+      background-color: #f3f3f3;
+      border-radius: 3px; }
       ul#multiSelection li label:hover, ul#multiSelection li label.active {
         background-color: purple;
-        color: white; }
+        background-color: #c080c0;
+        color: white;
+        font-weight: bold; }
         ul#multiSelection li label:hover input, ul#multiSelection li label.active input {
           color: white; }
       ul#multiSelection li label.active input {
@@ -95,6 +139,54 @@ ul#multiSelection {
       border: none;
       padding-left: 0;
       color: black;
-      font-weight: bold; }
+      cursor: pointer; }
+      ul#multiSelection li input::-webkit-input-placeholder {
+        color: purple; }
+      ul#multiSelection li input:-moz-placeholder {
+        color: purple; }
+      ul#multiSelection li input::-moz-placeholder {
+        color: purple; }
+      ul#multiSelection li input:-ms-input-placeholder {
+        color: purple; }
+
+button#submit {
+  -moz-transition: background-color 0.5s, color 0.5s;
+  -o-transition: background-color 0.5s, color 0.5s;
+  -webkit-transition: background-color 0.5s, color 0.5s;
+  transition: background-color 0.5s, color 0.5s;
+  background-color: white;
+  color: purple;
+  padding: 10px 30px;
+  border: 2px solid purple; }
+  button#submit:hover, button#submit.active {
+    background-color: purple;
+    color: white; }
+
+#skip {
+  color: rgba(0, 0, 0, 0.4);
+  -moz-transition: color 0.5s, margin 0.5s;
+  -o-transition: color 0.5s, margin 0.5s;
+  -webkit-transition: color 0.5s, margin 0.5s;
+  transition: color 0.5s, margin 0.5s;
+  margin-left: 0; }
+  #skip:before {
+    -moz-transition: color 0.5s, left 0.25s;
+    -o-transition: color 0.5s, left 0.25s;
+    -webkit-transition: color 0.5s, left 0.25s;
+    transition: color 0.5s, left 0.25s;
+    content: ':(';
+    color: white;
+    position: absolute;
+    left: -30px; }
+  #skip:hover {
+    margin-left: 25px;
+    color: purple;
+    text-decoration: none; }
+    #skip:hover:before {
+      color: purple;
+      left: 20px; }
+
+#view-leaderboard h3 {
+  color: purple !important; }
 
 /*# sourceMappingURL=main.css.map */

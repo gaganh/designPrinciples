@@ -2,40 +2,41 @@
   <div class="col-xs-12">
     <br>
     <div class="clearfix"></div>
-    <div class="col-sm-3 col-xs-12 centered">
+    <div class="col-sm-3 col-xs-3 centered">
       <h4>0.</h4>
       All Design Principles start 
       <br> <div class="label label-default">Unlearned</div>
     </div>
-    <div class="col-sm-3 col-xs-12 centered">
+    <div class="col-xs-3 centered">
       <h4>1.</h4>
       Guess the principle to 
-      <br> <div class="label label-warning">Learn it.</div>
+      <br> <div class="label label-warning">Learn it</div>
     </div>
-    <div class="col-sm-3 col-xs-12 centered">
+    <div class="col-xs-3 centered">
       <h4>2.</h4> 
       Retest each principle to 
       <br><div class="label label-success">Lock it In</div>
     </div>
-    <div class="col-sm-3 col-xs-12 centered">
+    <div class="col-xs-3 centered">
       <h4><i>N</i>.</h4>
       Lock in all 150 to win! 
       <br><img src="http://image.flaticon.com/icons/png/128/123/123410.png" height="15"></div>
     </div>
-    <div class="clearfix"></div>
-    <br>
     <div class="col-xs-12">
       <br/>
       <div class="progress" style="height: 100px;">
-        <div class="progress-bar progress-bar-success progress-bar-striped progress-bar" role="progressbar"
+        <div class="progress-bar progress-bar-success progress-bar-striped progress-bar active" role="progressbar"
              progressbar total="progressTotal" current="progressCurrent3"></div>
-        <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"
+        <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar"
              progressbar total="progressTotal" current="progressCurrent2"></div>
         <div class="progress-bar progress-bar-gray progress-bar-striped" role="progressbar"
              progressbar total="progressTotal" current="progressCurrent1"></div>
+        <span id="tooltipCurrent1"></span>
+        <span id="tooltipCurrent2"></span> 
+        <span id="tooltipCurrent3"></span>
       </div>
     <div class="clearfix"></div>
-    <hr>
+    
     <!-- <code ng-repeat="fac in filteredAnswerChoices">{{fac | json}} <br></code> -->
   </div>  
 
@@ -64,9 +65,10 @@
         </li>
       </ul>
 
-      <button class="btn btn-success btn-lg pull-right sharp-corners" type="submit"><i class="glyphicon glyphicon-send" ng-click="validateNaAnswer();"></i> &emsp; Submit</button>
+      <button id="submit" class="btn-lg pull-right sharp-corners" type="submit"><i class="glyphicon glyphicon-send" ng-click="validateNaAnswer();"></i> &emsp; Submit</button>
+
     </form>
-    <a class="btn btn-link pull-right btn-lg" ng-click="reroll();">skip</i></a>
+    <a id="skip" tooltip data-toggle="tootip" data-title="Just don't make it a habit" class="btn btn-link btn-lg" ng-click="reroll();">skip</i></a>
     <br><br><br>
   </div>
 

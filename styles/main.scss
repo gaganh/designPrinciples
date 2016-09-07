@@ -1,17 +1,71 @@
 // bower:scss
 // endbower
 
+
+
 // FONTS
 @import 'https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Ubuntu';
+@import 'transitions';
+@import 'functions';
+
+// MICRO STYLES
+$blk: rgba(0,0,0,.75); 
 
 .purple { color: purple; }
-.blk { color: rgba(0,0,0,.75); }
+.blk { color: $blk; }
 .light { font-weight: 100; }
 .ubuntu { font-family: 'Ubuntu', sans-serif; }
 .centered { text-align: center; }
 .text-left { text-align: left; }
-.xccc { color: white; text-shadow: 2px 2px purple; font-size: 24px; }
-body { background-color: #f3f3f3; }
+.text-right { text-align: right; }
+
+.pad-0 { padding: 0px; }
+
+// BRAND
+html, body { height: 100%; width: 100%; }
+body { background-color: purple; }
+
+#logo { 
+  text-shadow: 3px 0px 0px white;
+  font-size: 48px; 
+}
+
+// body { background-color: #f3f3f3; }
+#bodybg {
+  z-index: -1;
+  height: 100%;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  background-image: url('../images/ignasi_pattern_s.png');
+  background-repeat: both;
+  opacity: .9;
+}
+
+#intro { margin-top: 225px;}
+// pseudo-id substitutes
+.xccc { color: white; font-size: 48px; opacity: .75; }
+
+.parallax { 
+  height: 300px;
+  width: 100%; 
+  position: fixed;
+  top: 75px;
+  z-index: -1;
+}
+
+  // &:after {
+  //   content: "";
+  //   background: url(http://subtlepatterns.com/patterns/bo_play_pattern.png) repeat;
+  //   top: 0;
+  //   left: 0;
+  //   bottom: 0;
+  //   right: 0;
+  //   position: absolute;
+  //   z-index: -1;   
+  // }
+// }
+
 .bg-white { background-color: white; }
 .bg-f3 { background-color: #f3f3f3; }
 gray { color: rgba(0,0,0,.7); font-weight: bold;}
@@ -24,7 +78,10 @@ green { color: green; font-weight: bold; }
 .width-100p { width: 100%; }
 .pad-5 { padding: 5px; }
 
+
+// progress bar
 .progress-bar-gray { background-color: #ccc; }
+
 
 .footer { border: none; opacity: .5; position: fixed; bottom: -10px; width: 100%; border: none;
   &:hover { opacity: 1; }
@@ -36,13 +93,19 @@ ul#multiSelection {
   li { 
     list-style: none;
     label {
+      @include transition(background-color .5s, color .5s,  .25, tint 1s);
       background-color: #f3f3f3;
       border-radius: 0;
       margin-bottom: 2px;
       display: block;
+      color: purple;
+      background-color: tint(#f3f3f3, 0%);
+      border-radius: 3px;
       &:hover, &.active { 
         background-color: purple;
+        background-color: tint(purple, 50%);
         color: white;
+        font-weight: bold;
         input { color: white; }
       }
       &.active input { color: white;}
@@ -53,7 +116,46 @@ ul#multiSelection {
       border: none;
       padding-left: 0;
       color: black;
-      font-weight: bold;
+      cursor: pointer;
+      &::-webkit-input-placeholder { color: purple; }
+      &:-moz-placeholder { color: purple ; }
+      &::-moz-placeholder { color: purple; }
+      &:-ms-input-placeholder { color: purple; }
     }
   }
 }
+
+button#submit { 
+  @include transition(background-color .5s, color .5s);
+  background-color: white;
+  color: purple;
+  padding: 10px 30px;
+  border: 2px solid purple; 
+  &:hover, &.active {
+    background-color: purple;
+    color: white; 
+  }
+}
+
+#skip { color: rgba(0,0,0,.4);
+  @include transition(color .5s, margin .5s);
+  margin-left: 0;
+  &:before { 
+    @include transition(color .5s, left .25s);
+    content: ':('; color: white; position: absolute; left: -30px;}
+  &:hover { 
+    margin-left: 25px;
+    color: purple; 
+    text-decoration: none;
+    &:before { color: purple; left: 20px;}
+  }
+}
+
+#view-leaderboard  {
+  h3 { color: purple !important; }
+}
+
+
+
+
+

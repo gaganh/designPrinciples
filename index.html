@@ -17,17 +17,23 @@
     <!-- endbuild -->
   </head>
   <body ng-app="designPrinciplesApp">
+    <div id="bodybg"></div>
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div class="container bg-whhite centered">
-      <br>
-      <h2 class="ubuntu light">UX<span class="purple">HAX</span></h3>
-      <b class="xccc">THE PRINCIPLES OF DESIGN</b>
-      <br><br><br><br>
+    <div class="parallax">
+      <div class="container pad-0">
+        <div class="col-md-4 col-xs-12">
+          <h2 class="ubuntu light" id="logo">UX<span class="purple">HAX</span></h2>
+        </div>
+        <div class="col-md-8 col-xs-12 hidden-sm hidden-xs">
+          <h2 class="xccc ubuntu light pull-right">Daily Design Principles</h2>
+        </div>
+      </div>
     </div>
-    <div class="container centered">
+
+    <div class="container text-right" id="intro">
         <a href="#/" class="btn btn-link btn-xs pad-5">Play!</a> |
         <a href="#/leaderboard" class="btn btn-link btn-xs pad-5">Leaderboard</a> |
         <a href="#/about" class="btn btn-link btn-xs pad-5">About</a>
