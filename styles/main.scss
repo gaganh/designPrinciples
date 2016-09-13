@@ -54,6 +54,8 @@ body { background-color: purple; }
   z-index: -1;
 }
 
+
+
   // &:after {
   //   content: "";
   //   background: url(http://subtlepatterns.com/patterns/bo_play_pattern.png) repeat;
@@ -81,7 +83,8 @@ green { color: green; font-weight: bold; }
 
 // progress bar
 .progress-bar-gray { background-color: #ccc; }
-
+.progress-bar-purple { background-color: purple; }
+.label-purple { background-color: tint(purple, 25%); }
 
 .footer { border: none; opacity: .5; position: fixed; bottom: -10px; width: 100%; border: none;
   &:hover { opacity: 1; }

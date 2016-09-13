@@ -17,83 +17,83 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
 
   $scope.principles = [
   	{
-  		id: 0,
+  		id: 1,
   		name: "3d Projection",
   		status: 1
   	}, {
-  		id: 1,
+  		id: 2,
   		name: "80/20 Rule",
   		status: 1
   	}, {
-  		id: 2,
+  		id: 3,
   		name: "Abbe",
   		status: 1
   	}, {
-  		id: 3,
+  		id: 4,
   		name: "Accessibility",
   		status: 1
   	}, {
-  		id: 4,
+  		id: 5,
   		name: "Aesthetic-Usability Effect",
   		status: 1
   	}, {
-  		id: 5,
+  		id: 6,
   		name: "Affordance",
   		status: 1
   	}, {
-  		id: 6,
+  		id: 7,
   		name: "Alignment",
   		status: 1
   	}, {
-  		id: 7,
+  		id: 8,
   		name: "Anthropomorphism",
   		status: 1
   	}, {
-  		id: 8,
+  		id: 9,
   		name: "Apparent Motion",
   		status: 1
   	}, {
-  		id: 9,
+  		id: 10,
   		name: "Archetypes",
   		status: 1
   	}, {
-  		id: 10,
+  		id: 11,
   		name: "Area Alignment",
   		status: 1
   	}, {
-  		id: 11,
+  		id: 12,
   		name: "Attractiveness Bias",
   		status: 1
   	}, {
-  		id: 12,
+  		id: 13,
   		name: "Baby-face Bias",
   		status: 1
   	}, {
-  		id: 13,
+  		id: 14,
   		name: "Back of the Dresser",
   		status: 1
   	}, {
-  		id: 14,
+  		id: 15,
   		name: "Biophilia Effect",
   		status: 1
   	}, {
-  		id: 15,
+  		id: 16,
   		name: "Black Effects",
   		status: 1
   	}, {
-  		id: 16,
+  		id: 17,
   		name: "Blue Effects",
   		status: 1
   	}, {
-  		id: 17,
+  		id: 18,
   		name: "Cathedral Effect",
   		status: 1
   	}, {
-  		id: 18,
+  		id: 19,
   		name: "Chunking",
   		status: 1
   	}, {
-  		id: 19,
+  		id: 20,
   		name: "Classical Conditioning",
   		status: 1
   	}
@@ -101,10 +101,10 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
 
 /* Contents:
 	x	1. ROLL: Select Principle, Draw Multiplechoice Options, Set Correect Answer 
-		2. Filter Multiplechoice Options By Randomly Selected Cards
-		3. Apply & Resolve Success/Fail to Submission of Multiple Choice
+	x	2. Filter Multiplechoice Options By Randomly Selected Cards
+	x	3. Apply & Resolve Success/Fail to Submission of Multiple Choice
 		5. Apply Status-2 Select2 Dropdown.
-		6. Reroll
+	x	6. Reroll
 */
   // defaults
   $scope.progressTotal = $scope.principles.length;
@@ -143,7 +143,6 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
   	};
 
 		// set correct answer and multiple choice options
-		console.log("on level: " + answerSelected.status);
   	switch(answerSelected.status) {
     	case 1: // if Not Learned
   			$scope.answerCorrect = answerSelected.id;
@@ -171,13 +170,29 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
     	default:
     		$scope.reroll();
 		};
+
+    // shuffle answer choices
+    function shuffle(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    };
+    shuffle($scope.answerChoices);
+
   };
 
   // generate array of answerChoices
   function mapIdToAnswer() {
 		$scope.filteredAnswerChoices = [];
 		for (var m=0; m<$scope.answerChoices.length; m++) {
-			$scope.filteredAnswerChoices.push($scope.principles[$scope.answerChoices[m]])
+			$scope.filteredAnswerChoices.push($scope.principles[$scope.answerChoices[m]-1])
 		}
 	};
 
@@ -191,7 +206,7 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
     console.log("RADIOVAL " + $scope.radioVal);
     console.log("ANSWERCORRECT " + $scope.answerCorrect);
 		if ($scope.radioVal == $scope.answerCorrect) {
-			switch($scope.principles[$scope.radioVal].status) {
+			switch($scope.principles[$scope.radioVal+1].status) {
 				case 1: // if Not Learned
 					$scope.principles[$scope.radioVal].status = 2;
 					break;
@@ -328,13 +343,5 @@ angular.module('designPrinciplesApp').controller('MainCtrl', ['$scope','SweetAle
   };
 
   $scope.reroll();
-
-
-
-
-
-
-
-
 
 }]); // END of Controller

@@ -97,6 +97,12 @@ green {
 .progress-bar-gray {
   background-color: #ccc; }
 
+.progress-bar-purple {
+  background-color: purple; }
+
+.label-purple {
+  background-color: #a040a0; }
+
 .footer {
   border: none;
   opacity: .5;
